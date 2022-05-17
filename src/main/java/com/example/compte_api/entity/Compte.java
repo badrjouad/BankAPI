@@ -1,28 +1,20 @@
 package com.example.compte_api.entity;
 
-
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDate;
-
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "COMPTE")
+@Table(name = "account")
 public class Compte {
-
-
     @Id
     private Long id;
-    private String accountNumber;
-    private LocalDate createdAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personne_id", referencedColumnName = "id")
+    private Personne person;
 
+    private BigDecimal depotInitial;
+    private BigDecimal encours;
 
 
 }

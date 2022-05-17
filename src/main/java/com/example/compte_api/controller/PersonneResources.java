@@ -1,5 +1,5 @@
 package com.example.compte_api.controller;
-import com.example.compte_api.entity.Person;
+import com.example.compte_api.entity.Personne;
 import com.example.compte_api.service.api.PersonneServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/person")
+@RequestMapping("api/personnes")
 public class PersonneResources {
 
 
@@ -24,21 +24,21 @@ public class PersonneResources {
     }
 
 
-    @GetMapping(value = "/list")
-    public List<Person> getAll ()
+    @GetMapping(value = "/")
+    public List<Personne> getAll ()
     {
         return personneServiceInterface.getAllPersons();
 
     }
 
-    @GetMapping("/personne/{personne_id}")
-    private Optional<Person> getById(@PathVariable("personne_id") Long personne_id)
+    @GetMapping("/{personne_id}")
+    private Optional<Personne> getById(@PathVariable("personne_id") Long personne_id)
     {
         return  personneServiceInterface.finPersonById(personne_id);
     }
 
 
-    @DeleteMapping("/personne/{personne_id}")
+    @DeleteMapping("/{personne_id}")
     private void delete(@PathVariable("personne_id") Long personne_id)
     {
         personneServiceInterface.deletePersonById(personne_id);
@@ -47,7 +47,7 @@ public class PersonneResources {
 
 
     @PostMapping("/personne")
-    private Person save(@RequestBody Person person)
+    private Personne save(@RequestBody Personne person)
     {
         personneServiceInterface.addPerson(person);
         return person;

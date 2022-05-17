@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/compte")
+@RequestMapping("/api/accounts")
 public class CompteResources {
 
 
@@ -27,21 +27,21 @@ public class CompteResources {
 
     }
 
-    @GetMapping(value = "/accounts")
+    @GetMapping(value = "/")
     public List<Compte> getAll ()
     {
         return compteServiceInterface.getAllAccounts();
 
     }
 
-    @GetMapping("/account/{account_id}")
+    @GetMapping("/{account_id}")
     private Optional<Compte> getById(@PathVariable("account_id") Long account_id)
     {
         return  compteServiceInterface.findAccountById(account_id);
     }
 
 
-    @DeleteMapping("/account/{account_id}")
+    @DeleteMapping("/{account_id}")
     private void delete(@PathVariable("account_id") Long account_id)
     {
         compteServiceInterface.deleteAccountById(account_id);

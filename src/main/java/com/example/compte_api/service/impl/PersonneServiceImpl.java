@@ -2,7 +2,7 @@ package com.example.compte_api.service.impl;
 
 
 import com.example.compte_api.dao.PersonneRespository;
-import com.example.compte_api.entity.Person;
+import com.example.compte_api.entity.Personne;
 import com.example.compte_api.service.api.PersonneServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ public class PersonneServiceImpl implements PersonneServiceInterface {
     PersonneRespository personneRespository;
 
     @Override
-    public List<Person> getAllPersons() {
+    public List<Personne> getAllPersons() {
         return personneRespository.findAll();
     }
 
     @Override
-    public Optional<Person> finPersonById(Long id) {
+    public Optional<Personne> finPersonById(Long id) {
         return  personneRespository.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class PersonneServiceImpl implements PersonneServiceInterface {
     }
 
     @Override
-    public Person addPerson(Person person) {
+    public Personne addPerson(Personne person) {
         return personneRespository.save(person);
     }
 }
