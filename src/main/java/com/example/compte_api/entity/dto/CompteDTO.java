@@ -1,10 +1,12 @@
 package com.example.compte_api.entity.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+
+
+@Data
+@NoArgsConstructor
 public class CompteDTO {
     private Long id;
     private String nom;

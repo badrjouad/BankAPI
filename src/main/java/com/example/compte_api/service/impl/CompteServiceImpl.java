@@ -2,7 +2,10 @@ package com.example.compte_api.service.impl;
 
 import com.example.compte_api.dao.CompteRepository;
 import com.example.compte_api.entity.Compte;
+import com.example.compte_api.entity.dto.CompteDTO;
+import com.example.compte_api.mapper.CompteMapper;
 import com.example.compte_api.service.api.CompteServiceInterface;
+import fr.xebia.extras.selma.Selma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +19,15 @@ public class CompteServiceImpl implements CompteServiceInterface {
     CompteRepository compteRepository;
 
 
+
     @Override
-    public List<Compte> getAllAccounts() {
-        return compteRepository.findAll();
+    public List<CompteDTO> getAllAccounts() {
+        //Build Product Mapper
+        CompteMapper compteMapper = Selma.builder(CompteMapper.class).build();
+
+        //Clone Result list of Entity product  to list of product Dto and retutn it
+        return  compteMapper.asCompteDTO(compteRepository.findAll());
+
     }
 
     @Override

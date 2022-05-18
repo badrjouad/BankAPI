@@ -2,6 +2,7 @@ package com.example.compte_api.controller;
 
 
 import com.example.compte_api.entity.Compte;
+import com.example.compte_api.entity.dto.CompteDTO;
 import com.example.compte_api.service.api.CompteServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,15 +21,15 @@ public class CompteResources {
     @Autowired
     CompteServiceInterface compteServiceInterface;
 
-    @GetMapping(value = "/hello")
+    @GetMapping(value = "/home")
     public String helloWorld()
     {
-        return "Hello world";
+        return "Hello home ";
 
     }
 
-    @GetMapping(value = "/")
-    public List<Compte> getAll ()
+    @GetMapping
+    public List<CompteDTO> getAll ()
     {
         return compteServiceInterface.getAllAccounts();
 
