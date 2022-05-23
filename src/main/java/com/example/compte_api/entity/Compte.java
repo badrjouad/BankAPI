@@ -1,12 +1,10 @@
 package com.example.compte_api.entity;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+
 
 @Data
 @NoArgsConstructor
@@ -19,8 +17,9 @@ public class Compte {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personne_id", referencedColumnName = "id")
     private Personne person;
-    private BigDecimal depotInitial;
-    private BigDecimal encours;
-
-
+    private String object;
+    private LocalDate createdAt;
+    private long number;
+    private double balance;
+    private String currency;
 }

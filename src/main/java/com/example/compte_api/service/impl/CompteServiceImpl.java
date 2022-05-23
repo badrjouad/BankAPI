@@ -2,7 +2,7 @@ package com.example.compte_api.service.impl;
 
 import com.example.compte_api.dao.CompteRepository;
 import com.example.compte_api.entity.Compte;
-import com.example.compte_api.entity.dto.CompteDTO;
+import com.example.compte_api.dto.CompteDTO;
 import com.example.compte_api.mapper.CompteMapper;
 import com.example.compte_api.service.api.CompteServiceInterface;
 import fr.xebia.extras.selma.Selma;
@@ -18,30 +18,49 @@ public class CompteServiceImpl implements CompteServiceInterface {
     @Autowired
     CompteRepository compteRepository;
 
+    @Autowired
+    CompteMapper compteMapper;
 
 
     @Override
-    public List<CompteDTO> getAllAccounts() {
-        //Build Product Mapper
-        CompteMapper compteMapper = Selma.builder(CompteMapper.class).build();
+    public List<CompteDTO> getAll() {
 
-        //Clone Result list of Entity product  to list of product Dto and retutn it
+
         return  compteMapper.asCompteDTO(compteRepository.findAll());
 
     }
 
     @Override
-    public Optional<Compte> findAccountById(Long id) {
+    public Optional<Compte> find(Long id) {
         return compteRepository.findById(id);
     }
 
     @Override
-    public void deleteAccountById(Long id) {
-        compteRepository.deleteById(id);
+    public void delete(Long id) throws Exception {
+
+        Compte compte = compteRepository.getById(id) ;
+        if (compte== null)
+        {
+            throw new Exception("Product not found");
+        }
+        compteRepository.delete(compte);
     }
 
     @Override
-    public Compte addAccount(Compte compte) {
-        return compteRepository.save(compte);
+    public CompteDTO add(CompteDTO compteDTO) {
+
+
+        Compte compte = compteMapper.asCompte(compteDTO);
+
+        return  compteMapper.asCompteDTO(compteRepository.saveAndFlush(compte));
+    }
+
+    @Override
+    public CompteDTO update(CompteDTO compteDTO) {
+        CompteMapper compteMapper = Selma.builder(CompteMapper.class).build();
+
+        Compte compte = compteMapper.asCompte(compteDTO);
+
+        return  compteMapper.asCompteDTO(compteRepository.save(compte));
     }
 }

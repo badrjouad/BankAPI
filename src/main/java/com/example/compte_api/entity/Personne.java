@@ -18,7 +18,4 @@ public class Personne {
     private String lastName;
     private String dateNaissance;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "compte_id", referencedColumnName = "id")
-    private Compte compte;
 }

@@ -2,7 +2,7 @@ package com.example.compte_api.controller;
 
 
 import com.example.compte_api.entity.Compte;
-import com.example.compte_api.entity.dto.CompteDTO;
+import com.example.compte_api.dto.CompteDTO;
 import com.example.compte_api.service.api.CompteServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,33 +29,39 @@ public class CompteResources {
     }
 
     @GetMapping
-    public List<CompteDTO> getAll ()
+    public List<CompteDTO> getAll()
     {
-        return compteServiceInterface.getAllAccounts();
+        return compteServiceInterface.getAll();
 
     }
 
     @GetMapping("/{account_id}")
     private Optional<Compte> getById(@PathVariable("account_id") Long account_id)
     {
-        return  compteServiceInterface.findAccountById(account_id);
+        return  compteServiceInterface.find(account_id);
     }
 
 
     @DeleteMapping("/{account_id}")
-    private void delete(@PathVariable("account_id") Long account_id)
-    {
-        compteServiceInterface.deleteAccountById(account_id);
+    private void delete(@PathVariable("account_id") Long account_id) throws Exception {
+        compteServiceInterface.delete(account_id);
         ResponseEntity.status(HttpStatus.CREATED).body("account with ID" + account_id +"\t" +  " has been deleted with succeseffuly");
     }
 
 
 
     @PostMapping("/account")
-    private Compte save(@RequestBody Compte compte)
+    private CompteDTO save(@RequestBody CompteDTO compteDTO)
     {
-        compteServiceInterface.addAccount(compte);
-        return compte;
+        compteServiceInterface.add(compteDTO);
+        return compteDTO;
+    }
+
+    @PutMapping("/account")
+    private CompteDTO update(@RequestBody CompteDTO compteDTO)
+    {
+        compteServiceInterface.update(compteDTO);
+        return compteDTO;
     }
 
 

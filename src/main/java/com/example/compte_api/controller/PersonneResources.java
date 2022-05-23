@@ -1,4 +1,5 @@
 package com.example.compte_api.controller;
+import com.example.compte_api.dto.PersonneDTO;
 import com.example.compte_api.entity.Personne;
 import com.example.compte_api.service.api.PersonneServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,32 +25,38 @@ public class PersonneResources {
     }
 
 
-    @GetMapping(value = "/")
-    public List<Personne> getAll ()
+    @GetMapping
+    public List<PersonneDTO> getAll ()
     {
-        return personneServiceInterface.getAllPersons();
+        return personneServiceInterface.getAll();
 
     }
 
     @GetMapping("/{personne_id}")
     private Optional<Personne> getById(@PathVariable("personne_id") Long personne_id)
     {
-        return  personneServiceInterface.finPersonById(personne_id);
+        return  personneServiceInterface.find(personne_id);
     }
 
 
     @DeleteMapping("/{personne_id}")
-    private void delete(@PathVariable("personne_id") Long personne_id)
-    {
-        personneServiceInterface.deletePersonById(personne_id);
+    private void delete(@PathVariable("personne_id") Long personne_id) throws Exception {
+        personneServiceInterface.delete(personne_id);
     }
 
 
 
     @PostMapping("/personne")
-    private Personne save(@RequestBody Personne person)
+    private PersonneDTO save(@RequestBody PersonneDTO personneDTO)
     {
-        personneServiceInterface.addPerson(person);
-        return person;
+        personneServiceInterface.add(personneDTO);
+        return personneDTO;
+    }
+
+    @PutMapping("/personne")
+    private PersonneDTO update(@RequestBody PersonneDTO personneDTO)
+    {
+        personneServiceInterface.update(personneDTO);
+        return personneDTO;
     }
 }
